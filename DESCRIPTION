@@ -14,3 +14,5 @@ LazyData: true
 RoxygenNote: 6.1.1
 Imports: 
     magick
+URL: https://github.com/dmi3kno/bunny
+BugReports: https://github.com/dmi3kno/bunny/issues
