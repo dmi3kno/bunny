@@ -2,6 +2,7 @@
 
 export(image_getpixel)
 export(image_plot)
+export(tidy_hough_mvg)
 importFrom(grDevices,dev.off)
 importFrom(graphics,points)
 importFrom(graphics,rect)
@@ -9,3 +10,5 @@ importFrom(magick,image_crop)
 importFrom(magick,image_draw)
 importFrom(magick,image_raster)
 importFrom(stats,na.omit)
+importFrom(stats,setNames)
+importFrom(utils,combn)

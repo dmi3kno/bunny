@@ -29,7 +29,7 @@ You can install the released version of bunny from [Github](https://www.github.c
 remotes::install_github("dmi3kno/bunny")
 ```
 
-## Example
+## Pixel operations
 
 This is a basic example which shows you how to solve a common problem:
 
@@ -48,6 +48,33 @@ Other than extracting color from individual pixels, `bunny` can also draw on ima
 frink <- image_read("https://jeroen.github.io/images/frink.png")
 image_plot(frink, geometry_area(50,35,80,150), "red")
 image_plot(frink, geometry_point(70,70), "red")
+```
+
+## Hough lines operations
+
+`bunny` can help you tidy up the Hough Lines mvg object, returned by `magick::image_hough_txt()`. Lets detect straight lines in the `bunny` logo.
+
+```{r}
+img <- image_read("data-raw/bunny_hex.png") 
+
+img_prep <- img %>% image_convert(type="Grayscale") %>% 
+  image_threshold("black") %>% 
+  image_canny() %>% 
+  image_morphology("Close", "Diamond")
+
+img_prep %>% 
+  image_hough_draw(geometry="50x50+200",overlay = TRUE)
+```
+
+Hough Lines are retuned in plain text object (`mvg` format). Let's tidy up that text and make it more suitable for analysis. `bunny::tidy_hough_mvg()` returns a list, which, among other things contains data frame describing lines and another data frame describing line intersections.
+
+```{r}
+hough <- img_prep %>% 
+  image_hough_txt(geometry="50x50+200") %>% 
+  tidy_hough_mvg()
+
+hough$lines_data
+hough$xsect_data
 ```
 
 Stay tuned for more exciting functions...
