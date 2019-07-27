@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
 
-The goal of **`bunny`** is to provide useful functions for working with `{magick}` package.
+The goal of `bunny` is to provide useful helper functions for working with `magick`.
 
 ## Installation
 
@@ -33,9 +33,10 @@ remotes::install_github("dmi3kno/bunny")
 
 This is a basic example which shows you how to solve a common problem:
 
-```{r example}
-library(bunny)
+```{r example, message=FALSE}
 library(magick)
+library(bunny)
+
 ## basic example code
 frink <- image_read("https://jeroen.github.io/images/frink.png")
 image_getpixel(frink, geometry_point(100,100))

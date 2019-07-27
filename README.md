@@ -9,8 +9,8 @@
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
 
-The goal of **`bunny`** is to provide useful functions for working with
-`{magick}` package.
+The goal of `bunny` is to provide useful helper functions for working
+with `magick`.
 
 ## Installation
 
@@ -27,11 +27,9 @@ remotes::install_github("dmi3kno/bunny")
 This is a basic example which shows you how to solve a common problem:
 
 ``` r
-library(bunny)
 library(magick)
-#> Linking to ImageMagick 6.9.7.4
-#> Enabled features: fontconfig, freetype, fftw, lcms, pango, x11
-#> Disabled features: cairo, ghostscript, rsvg, webp
+library(bunny)
+
 ## basic example code
 frink <- image_read("https://jeroen.github.io/images/frink.png")
 image_getpixel(frink, geometry_point(100,100))
