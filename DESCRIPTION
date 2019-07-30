@@ -1,18 +1,15 @@
 Package: bunny
 Title: Magick Helper
 Version: 0.0.0.9000
-Authors@R: 
-    person(given = "Dmytro",
-           family = "Perepolkin",
-           role = c("aut", "cre"),
-           email = "dperepolkin@gmail.com",
-           comment = c(ORCID = "0000-0001-8558-6183"))
-Description: Collection of helpful functions to facilitate manipulation and analysis of images using {magick}.
+Authors@R: person(given = "Dmytro", family = "Perepolkin", role = c("aut", "cre"), email
+          = "dperepolkin@gmail.com", comment = c(ORCID = "0000-0001-8558-6183"))
+Description: Collection of helpful functions to facilitate manipulation and analysis of
+          images using {magick}.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
-Imports: 
-    magick
+Imports: magick
 URL: https://github.com/dmi3kno/bunny
 BugReports: https://github.com/dmi3kno/bunny/issues
+Suggests: tinytest

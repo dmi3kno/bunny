@@ -22,4 +22,8 @@ bbm_to_angle <- function(m, m2=NULL){
   atan(abs((slope2-slope)/(1+slope*slope2)))*180/pi
 }
 
-
+parse_geometry <- function(x){
+  geom_pattern <- "^(?:(\\d+)?(?:x(\\d+))?)?(?:^\\+?(\\-?\\d+)\\+?(\\-?\\d+))?$"
+  res <- regmatches(x, regexec(geom_pattern, x))[[1]][-1]
+  setNames(as.numeric(res), c("width", "height", "x_off", "y_off"))
+}
