@@ -45,14 +45,14 @@ image_channel_reset <- function(image, channel){
 #' @rdname image_channel_set
 #' @export
 image_channel_copy <- function(image, channel, channel_image){
-   df <- data.frame(channel = c("C", "Cyan", "M", "Magenta", "K",
-                          "Black", "R", "Red", "G", "Green",
-                          "B", "Blue", "A", "Alpha", "Matte",
-                          "O", "Opacity", "4"),
-             copy_operator = c("CopyCyan", "CopyCyan", "CopyMagenta", "CopyMagenta", "CopyBlack",
-                  "CopyBlack", "CopyRed", "CopyRed", "CopyGreen", "CopyGreen",
-                  "CopyBlue", "CopyBlue", "CopyOpacity", "CopyOpacity", "CopyOpacity",
-                  "CopyOpacity", "CopyOpacity", "CopyOpacity"), stringsAsFactors = FALSE)
+   df <- data.frame(channel = c("C", "Cyan", "M", "Magenta",
+                                "Y", "Yellow", "K","Black",
+                           "R", "Red", "G", "Green","B", "Blue",
+                           "A", "Alpha", "Matte", "O", "Opacity", "4"),
+             copy_operator = c(rep("CopyCyan",2), rep("CopyMagenta",2),
+                               rep("CopyYellow", 2), rep("CopyBlack",2),
+                                 rep("CopyRed", 2), rep("CopyGreen", 2),
+                      rep("CopyBlue", 2), rep("CopyOpacity",6)), stringsAsFactors = FALSE)
 
   copy_operator <- df[df$channel==channel, "copy_operator"]
   magick::image_composite(image, channel_image, operator=copy_operator)
@@ -92,7 +92,8 @@ image_channel_combine <- function(image, channel_index="RGB", canvas=NULL){
     }
 
 
-  if(all(channel_index %in% c("Red", "R", "Green", "G", "Blue", "B"))){
+  if(all(channel_index %in% c("Red", "R", "Green", "G", "Blue", "B",
+                              "A", "O", "Opacity", "Alpha", "Matte"))){
     if (is.null(canvas))
       canvas <- magick::image_blank(ii$width[1], ii$height[1], "white")
     for(i in seq_along(channel_index))
@@ -100,7 +101,8 @@ image_channel_combine <- function(image, channel_index="RGB", canvas=NULL){
     return(canvas)
   }
 
-  if(all(channel_index %in% c("Cyan", "C", "Magenta", "M", "Yellow", "Y", "Black", "3", "K"))){
+  if(all(channel_index %in% c("Cyan", "C", "Magenta", "M", "Yellow", "Y", "Black", "3", "K",
+                              "A", "O", "Opacity", "Alpha", "Matte"))){
     if (is.null(canvas))
       canvas <- magick::image_convert(magick::image_blank(ii$width[1], ii$height[1], "white"), colorspace = "CMYK")
     for(i in seq_along(channel_index))
