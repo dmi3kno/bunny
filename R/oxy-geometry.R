@@ -26,6 +26,7 @@ geometry_parse <- function(x){
 geometry_paste <- function(x){
   if(is.null(dim(x)))
     dim(x) <- c(1,4)
+  x <- round(x, 0)
   p2 <- ifelse(is.na(x[,3]) & is.na(x[,4]), "",
               paste0(sprintf("%+d", x[,3]), sprintf("%+d", x[,4])))
   p1 <- ifelse(is.na(x[,1]) & is.na(x[,2]),"",
