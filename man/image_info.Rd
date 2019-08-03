@@ -3,19 +3,28 @@
 \name{image_canvas}
 \alias{image_canvas}
 \alias{image_annotate_info}
-\title{Empty canvas from existing image}
+\title{Empty canvas from existing image or specified dimensions}
 \usage{
-image_canvas(img, color = "transparent", pseudo_image = "")
+image_canvas(image = NULL, color = "transparent", width = NULL,
+  height = NULL, units = "px", dpi = 96, pseudo_image = "")
 
 image_annotate_info(text, size = 10, font = "", style = "normal",
   weight = 400, ...)
 }
 \arguments{
-\item{img}{existing image to copy dimensions from (content will be discarded)}
+\item{image}{existing image to copy dimensions from (content will be discarded)}
 
 \item{color}{color of the blank image. Default: 'transparent'}
 
-\item{pseudo_image}{name of the pseudo-image. Default: ''}
+\item{width}{canvas width}
+
+\item{height}{canvas width}
+
+\item{units}{one of "in", "cm" or "px". Default="px".}
+
+\item{dpi}{specification of density (required for any `units` other than "px"). Default = 96}
+
+\item{pseudo_image}{name of the pseudo-image. Default: ""}
 
 \item{text}{proposed text for annotation}
 
@@ -35,7 +44,7 @@ blank image of given dimensions
 data frame with measurements for every letter and the phrase in total
 }
 \description{
-Allows creating blank image without manually specifying width and height. These dimensions will be copied from the image passed as first argument.
+Extends `magick::image_blank()` to allow creating blank image with or without manually specifying width and height. If specimen image is provided dimensions will be copied from it.
 
 Calculate space taken by every latter in annotation
 }
@@ -45,7 +54,16 @@ The purpose of this function is to calculate kerning between letters that fonts 
 \examples{
 \dontrun{
 if(interactive()){
- #EXAMPLE1
+ frink <- image_read("https://jeroen.github.io/images/frink.png")
+ image_canvas(frink, "pink")
+
+ # will produce 504x360 canvas
+ image_canvas(width=7, height=5, units="in", dpi=72, color="burlywood")
+ # will produce 800x600 canvas
+ image_canvas(width=800, height=600, color="cornsilk")
+
+ # will produce 377x566 canvas
+ image_canvas(width=10, height=15, units="cm", dpi=96, color="aliceblue")
  }
 }
 \dontrun{
