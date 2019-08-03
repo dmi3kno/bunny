@@ -2,21 +2,25 @@
 
 library(ggforce)
 library(magick)
+
+
 ggplot() +
   geom_regon(aes(x0 = 100, y0 = 100, sides = 6,
                  angle = pi/2, r = 100), color="#1a181f", fill="#f8f2f4", size=2.5) +
   coord_fixed()+
   theme_void()
 
-ggsave("data-raw/hex.png")
+hex_file <- tempfile()
+
+ggsave(hex_file)
+
+b <- image_read(hex_file) %>% image_trim() %>%
+  image_transparent("white")
+ii_b <- image_info(b)
 
 p <- image_read("data-raw/magic-hat.png") %>%
   image_scale("15%")
 ii_p <- image_info(p)
-
-b <- image_read("data-raw/hex.png") %>% image_trim() %>%
-  image_transparent("white")
-ii_b <- image_info(b)
 
 img_hex <- image_composite(b, p,
                 offset = geometry_point(ii_b$width/2-ii_p$width/2,
