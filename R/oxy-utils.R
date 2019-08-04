@@ -21,3 +21,22 @@ bbm_to_angle <- function(m, m2=NULL){
   slope2 <- (m2[,4]-m2[,2])/(m2[,3]-m2[,1])
   atan(abs((slope2-slope)/(1+slope*slope2)))*180/pi
 }
+
+# used for image_canvas_hex and image_canvas_hexborder
+plot_ggforce_hex <- function(color, size, fill){
+  p <- ggplot2::ggplot() +
+    ggforce::geom_regon(ggplot2::aes(x0 = 100, y0 = 100, sides = 6,
+                            angle = pi/2, r = 100),
+                        color=color, fill=fill, size=size) +
+    ggplot2::coord_fixed()+
+    ggplot2::theme_void()
+
+  hex_temp_file <- tempfile()
+
+  ggplot2::ggsave(hex_temp_file, p, device="png", width=7, height = 7, dpi=300)
+
+  hex_image <- magick::image_read(hex_temp_file)
+  unlink(hex_temp_file)
+
+  hex_image
+}
