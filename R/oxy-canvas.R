@@ -60,6 +60,8 @@ image_canvas <- function(image=NULL, color="transparent", width=NULL, height=NUL
 #' @param border_size border thickness. Default: 2
 #' @param fill_color hex background. Default: 'azure'
 #' @param outer_margin margin around the hex. May be helpful for making sure nothing gets trimmed. Default: '10x10'
+#' @param scope logical. Add measurement grid to the center of the hex (similar to rifle scope).
+#' @param scope_color color of the grid. Default "grey80".
 #' @return image of hex canvas
 #' @details Border around the sticker can be later trimmed either by the printing company or by `magick::image_trim()`. It is preferred to not choose white background or white border to prevent excessive trimming.
 #' Requires `ggplot` and `ggforce` installed. `image_canvas_hexborder()` produces transparent hex with specified border color.
@@ -74,13 +76,13 @@ image_canvas <- function(image=NULL, color="transparent", width=NULL, height=NUL
 #' @rdname image_canvas_hex
 #' @export
 #' @importFrom magick image_trim image_transparent image_info image_fill geometry_point
-image_canvas_hex <- function(border_color="black", border_size=2, fill_color="azure", outer_margin="10x10"){
+image_canvas_hex <- function(border_color="black", border_size=2, fill_color="azure", outer_margin="10x10", scope=FALSE, scope_color="grey80"){
   fill <- fill_color
 
   if(fill_color=="white" || fill_color=="#ffffff")
     fill <- "azure"
 
-  hex_canvas <- plot_ggforce_hex(color=border_color, size=border_size, fill=fill)
+  hex_canvas <- plot_ggforce_hex(color=border_color, size=border_size, fill=fill, scope=scope, scope_color = scope_color)
   hex_canvas <- magick::image_trim(hex_canvas)
   hex_canvas <- magick::image_transparent(hex_canvas, "white")
   hex_canvas <- image_border(hex_canvas, color="transparent", geometry = outer_margin)

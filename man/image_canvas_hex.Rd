@@ -6,7 +6,8 @@
 \title{Make your own hex sticker}
 \usage{
 image_canvas_hex(border_color = "black", border_size = 2,
-  fill_color = "azure", outer_margin = "10x10")
+  fill_color = "azure", outer_margin = "10x10", scope = FALSE,
+  scope_color = "grey80")
 
 image_canvas_hexborder(border_color = "black", border_size = 2,
   outer_margin = "10x10")
@@ -19,6 +20,10 @@ image_canvas_hexborder(border_color = "black", border_size = 2,
 \item{fill_color}{hex background. Default: 'azure'}
 
 \item{outer_margin}{margin around the hex. May be helpful for making sure nothing gets trimmed. Default: '10x10'}
+
+\item{scope}{logical. Add measurement grid to the center of the hex (similar to rifle scope).}
+
+\item{scope_color}{color of the grid. Default "grey80".}
 }
 \value{
 image of hex canvas
