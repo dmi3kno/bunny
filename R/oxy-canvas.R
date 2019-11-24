@@ -103,7 +103,7 @@ image_canvas_hexborder <- function(border_color="black", border_size=2, outer_ma
   if(border_color=="white" || border_color=="#ffffff")
     color <- "black"
 
-  hex_border <- plot_ggforce_hex(color=border_color, size=border_size, fill="white")
+  hex_border <- plot_ggforce_hex(color=border_color, size=border_size, fill="white", scope=FALSE, scope_color = "white")
   hex_border <- magick::image_trim(hex_border)
   hex_border <- magick::image_transparent(hex_border, "white", fuzz = 20)
   hex_border <- image_border(hex_border, color="transparent", geometry = outer_margin)
