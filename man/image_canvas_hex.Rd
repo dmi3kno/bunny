@@ -5,12 +5,20 @@
 \alias{image_canvas_hexborder}
 \title{Make your own hex sticker}
 \usage{
-image_canvas_hex(border_color = "black", border_size = 2,
-  fill_color = "azure", outer_margin = "10x10", scope = FALSE,
-  scope_color = "grey80")
+image_canvas_hex(
+  border_color = "black",
+  border_size = 2,
+  fill_color = "azure",
+  outer_margin = "10x10",
+  scope = FALSE,
+  scope_color = "grey80"
+)
 
-image_canvas_hexborder(border_color = "black", border_size = 2,
-  outer_margin = "10x10")
+image_canvas_hexborder(
+  border_color = "black",
+  border_size = 2,
+  outer_margin = "10x10"
+)
 }
 \arguments{
 \item{border_color}{color of the hex border. Default: 'black'}

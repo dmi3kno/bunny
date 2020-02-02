@@ -5,8 +5,12 @@
 \alias{image_border_ghcard}
 \title{Make your own github card}
 \usage{
-image_canvas_ghcard(fill_color = "white", width = 1280, height = 640,
-  border = "80x80")
+image_canvas_ghcard(
+  fill_color = "white",
+  width = 1280,
+  height = 640,
+  border = "80x80"
+)
 
 image_border_ghcard(image, border_color = "white", border = "80x80")
 }

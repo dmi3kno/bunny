@@ -33,9 +33,37 @@ img_hex %>%
   image_scale("1200x1200") %>%
   image_write("data-raw/bunny_hex.png", density = 600)
 
-img_hex %>%
-  image_scale("200x200") %>%
-  image_write("man/figures/logo.png", density = 600)
+library(magick)
+library(bunny)
+
+img_hex <- image_read("data-raw/bunny_hex.png")
+
+img_hex_gh <- img_hex %>%
+  image_scale("480x480")
+
+gh_logo <- bunny::github %>%
+  image_scale("50x50")
+
+bg_col <- "#faeaf0"
+
+img_ghcard <-
+  image_canvas_ghcard(fill_color = bg_col) %>%
+  image_composite(img_hex_gh, gravity = "East", offset = "+100+0") %>%
+  image_annotate("{magick}", gravity = "West", location = "+50-30",
+                 size=54, font="Ubuntu Mono", weight = 700) %>%
+  image_annotate("helper", gravity = "West", location = "+280-30",
+                   size=55, font="Aller", weight = 700) %>%
+  image_compose(gh_logo, gravity="West", offset = "+60+40") %>%
+  image_annotate("dmi3kno/bunny", gravity="West",
+                 location="+120+45", size=50, font="Ubuntu Mono") %>%
+  image_border_ghcard(bg_col)
+
+img_ghcard %>%
+  image_write("data-raw/bunny_ghcard.png", density = 600)
+
+
+
+
 
 
 

@@ -4,8 +4,14 @@
 \alias{image_compose}
 \title{Combine two images together using operators, gravity and offset}
 \usage{
-image_compose(image, composite_image, operator = "atop",
-  gravity = "NorthWest", offset = "+0+0", compose_args = "")
+image_compose(
+  image,
+  composite_image,
+  operator = "atop",
+  gravity = "NorthWest",
+  offset = "+0+0",
+  compose_args = ""
+)
 }
 \arguments{
 \item{image}{original image which will remain in the background (also known as "destination" image)}

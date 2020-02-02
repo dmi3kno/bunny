@@ -5,11 +5,24 @@
 \alias{image_annotate_info}
 \title{Empty canvas from existing image or specified dimensions}
 \usage{
-image_canvas(image = NULL, color = "transparent", width = NULL,
-  height = NULL, units = "px", dpi = 96, pseudo_image = "")
+image_canvas(
+  image = NULL,
+  color = "transparent",
+  width = NULL,
+  height = NULL,
+  units = "px",
+  dpi = 96,
+  pseudo_image = ""
+)
 
-image_annotate_info(text, size = 10, font = "", style = "normal",
-  weight = 400, ...)
+image_annotate_info(
+  text,
+  size = 10,
+  font = "",
+  style = "normal",
+  weight = 400,
+  ...
+)
 }
 \arguments{
 \item{image}{existing image to copy dimensions from (content will be discarded)}
