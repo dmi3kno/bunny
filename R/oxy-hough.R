@@ -23,8 +23,16 @@ tidy_hough_mvg <- function(mvg, margin=0.05){
   h_vec <- strsplit(mvg, "\\n")[[1]]
   txt <- h_vec[-1:-2]
   txt1 <- gsub("^line ", "",txt)
-  txt2 <- gsub(",", " ",txt1)
-  lst3 <- lst_transpose(strsplit(txt2, "\\s{2}#\\s"))
+  txt2 <- gsub(",", " ", txt1)
+  txt3 <- gsub("^# ", "", txt2)
+  lst3 <- strsplit(txt3, "\\s+#\\s")
+  lst4_nms <- strsplit(lst3[[1]], " ")
+  lst4 <- lst_transpose(lst3[-1])
+  lst4_2_chr <- strsplit(lst4[[2]]," ")
+  lst4_2_num <- lapply(lst4_2_chr, as.numeric)
+  lst4_2_df <- as.data.frame(Reduce(rbind, lst4_2_num), row.names = FALSE)
+  lst4_2_dfn <- setNames(lst4_2_df, paste0("line_", lst4_nms[[2]]))
+  #lst4_2_dfn$line_id <- line_id
 
   hough_geom <- gsub("^# Hough line transform: ", "", h_vec[1])
   view_bbox <- gsub("^viewbox ","",h_vec[2])
@@ -33,19 +41,17 @@ tidy_hough_mvg <- function(mvg, margin=0.05){
   ii_height <- view_bbm[,4]-view_bbm[,2]
   n_lines <- length(h_vec[-1:-2])
 
-  line_id <- paste("line", seq_along(lst3[[1]]), sep = "_")
-  line_bbox <- stats::setNames(lst3[[1]], line_id)
-  line_plength <- stats::setNames(as.numeric(lst3[[2]]), line_id)
-  line_angle <- stats::setNames(bbm_to_angle(bbox_to_bbm(lst3[[1]])), line_id)
-  line_abm <- bbm_to_abm(bbox_to_bbm(lst3[[1]]))
+  line_id <- paste("line", seq_along(lst4[[1]]), sep = "_")
+  line_bbox <- stats::setNames(lst4[[1]], line_id)
+
+  #line_plength <- stats::setNames(as.numeric(lst4[[2]]), line_id)
+  line_abm <- bbm_to_abm(bbox_to_bbm(lst4[[1]]))
   lines_df <- data.frame(line_id=line_id,
                          line_bbox=line_bbox,
-                         line_plength=line_plength,
                          line_slope=line_abm[,"slope"],
                          line_intercept=line_abm[,"intercept"],
-                         line_angle=line_angle,
                          stringsAsFactors = FALSE, row.names = NULL)
-
+  lines_df <- cbind(lines_df, lst4_2_dfn)
   ##### intersections ########
   xsect_comb <- t(utils::combn(lines_df$line_id,2))
 
@@ -67,9 +73,9 @@ tidy_hough_mvg <- function(mvg, margin=0.05){
   xsect_df$xsect_angle <- bbm_to_angle(bbox_to_bbm(line_bbox[ xsect_comb[,1] ]),
                                        bbox_to_bbm(line_bbox[ xsect_comb[,2] ]) )
   xsect_df <- with(xsect_df, xsect_df[xsect_x<=ii_width*(1+margin) &
-                                        xsect_x>=-(ii_width*margin) &
-                                        xsect_y<=ii_height*(1+margin) &
-                                        xsect_y>=-(ii_height*margin), ])
+                                      xsect_x>=-(ii_width*margin) &
+                                      xsect_y<=ii_height*(1+margin) &
+                                      xsect_y>=-(ii_height*margin), ])
 
 
   list(
