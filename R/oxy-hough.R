@@ -30,7 +30,7 @@ tidy_hough_mvg <- function(mvg, margin=0.05){
   lst4 <- lst_transpose(lst3[-1])
   lst4_2_chr <- strsplit(lst4[[2]]," ")
   lst4_2_num <- lapply(lst4_2_chr, as.numeric)
-  lst4_2_df <- as.data.frame(Reduce(rbind, lst4_2_num), row.names = FALSE)
+  lst4_2_df <- as.data.frame(matrix(Reduce(rbind, lst4_2_num), ncol=3), row.names = NULL)
   lst4_2_dfn <- setNames(lst4_2_df, paste0("line_", lst4_nms[[2]]))
   #lst4_2_dfn$line_id <- line_id
 
@@ -53,7 +53,9 @@ tidy_hough_mvg <- function(mvg, margin=0.05){
                          stringsAsFactors = FALSE, row.names = NULL)
   lines_df <- cbind(lines_df, lst4_2_dfn)
   ##### intersections ########
-  xsect_comb <- t(utils::combn(lines_df$line_id,2))
+  xsect_comb <- NULL
+  if(length(lines_df$line_id)>1)
+    xsect_comb <- t(utils::combn(lines_df$line_id,2))
 
   hl_intersection <- function(m1, m2, line_id_1, line_id_2){
     t_num <- (m1[,1]-m2[,1])*(m2[,2]-m2[,4])-(m1[,2]-m2[,2])*(m2[,1]-m2[,3])
