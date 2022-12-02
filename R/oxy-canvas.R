@@ -76,6 +76,8 @@ image_canvas <- function(image=NULL, color="transparent", width=NULL, height=NUL
 #' @rdname image_canvas_hex
 #' @export
 #' @importFrom magick image_trim image_transparent image_info image_fill geometry_point
+#' @importFrom ggforce geom_regon
+#' @importFrom ggplot2 ggplot aes coord_fixed theme_void ggsave geom_errorbar geom_errorbarh geom_text
 image_canvas_hex <- function(border_color="black", border_size=2, fill_color="azure", outer_margin="10x10", scope=FALSE, scope_color="grey80"){
   fill <- fill_color
 
